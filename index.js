@@ -1,20 +1,21 @@
 const express = require("express");
+const bodyparser=require('body-parser');
 const cors = require("cors");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const trainingRoutes = require("./routes/training");
 const multer = require('multer');
 const upload = multer({ dest: "uploads/" });
-
+const paymentRoute =require("./routes/paymentRoute.js");
 const collegeRoutes = require("./routes/collegeRoutes");
 const app = express();
 
-
-require("dotenv").config();
+app.use(bodyparser.urlencoded({extended:true}));
+require("dotenv").config({path:'./config/config.env'});
 
 app.use(cors());
 app.use(express.json());
-
+app.use('/apipay',paymentRoute);
 app.use('/uploads', express.static('uploads'));
 
 mongoose
