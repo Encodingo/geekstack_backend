@@ -5,15 +5,18 @@ const authRoutes = require("./routes/auth");
 const trainingRoutes = require("./routes/training");
 const multer = require('multer');
 const upload = multer({ dest: "uploads/" });
-
+const bodyparser = require('body-parser');
+const paymentRoute = require('./routes/paymentRoute.js');
 const collegeRoutes = require("./routes/collegeRoutes");
 const app = express();
 
 
-require("dotenv").config();
+// require("dotenv").config({path:'./config/config.env'});
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use('/apipay', paymentRoute);
 
 app.use('/uploads', express.static('uploads'));
 
