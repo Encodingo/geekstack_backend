@@ -15,7 +15,7 @@ module.exports.createTraining = async (req, res, next) => {
   try {
     const { trainingName, category, subcategory, message, price } = req.body;
     const imageurl = req.file.path;
-    const image = `${process.env.HOST_URL}/${imageurl}`;
+    const image = process.env.HOST_URL + "/" + imageurl;
     const training = await Training.create({
       trainingName,
       category,
